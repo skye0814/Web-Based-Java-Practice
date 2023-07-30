@@ -1,0 +1,96 @@
+<?php
+
+session_start();
+
+@include 'config.php';
+
+
+/* if(!isset($_SESSION['admin_email']) && empty($_SESSION['admin_email']) ){
+    header('Location: login.php');
+} */
+if(isset($_GET['delete'])){
+    $id = $_GET['delete'];
+    mysqli_query($conn, "DELETE FROM users_db WHERE id = '$id'");
+    mysqli_query($conn, "DELETE FROM user_topic_status WHERE userID = '$id'");
+    header('location:admin-users.php');
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Java Practice </title>
+	<link rel="stylesheet" href="./assets/css/admin.css" />
+</head>
+<body>
+	<div class="app">
+		<div class="menu-toggle">
+			<div class="hamburger">
+				<span></span>
+			</div>
+		</div>
+        
+		<aside class="sidebar">
+            <div class="logo">
+                <img src="./images/logo.png" alt="">
+            </div>
+			<nav class="menu">
+				<a href="admin-main.php" class="menu-item ">Topics</a>
+				<a href="admin-modules.php" class="menu-item">Modules</a>
+                <a href="admin-users.php" class="menu-item is-active">Users</a>
+                <a href="logout.php" class="menu-item is-out">Sign Out</a>
+            </ul>
+			</nav>
+
+		</aside>
+        <main class="content">
+            <div class="dashboard">
+                <div class="cards">
+                    <div class="users">
+                        <h1 class="name">Users</h1>
+                        <a class ="repBtn" href="admin-generate-report.php">Generate Report</a>
+                        <table class="table" >
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Score</td>
+                                    <th>User Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                $select = mysqli_query($conn, "SELECT * FROM users_db");
+                                while($row = mysqli_fetch_assoc($select)){
+                            ?>
+                                <tr>
+                                    <td data-label="USERNAME:"><h5><?php echo $row['username']; ?></h5></td>
+                                    <td width="40%" data-label="EMAIL:"><h5><?php echo $row['email']; ?></h5></td>
+                                    <td data-label="SCORE:"><h5><?php echo $row['score']; ?></h5></td>
+                                    <td data-label="USER TYPE:"><h5><?php echo $row['user_type']; ?></h5></td>
+                                    <td class="btns">
+                                        <a class="delete" href="admin-users.php?delete=<?php echo $row['id']; ?>">Delete User</a>      
+                                        <a class="quest" href="admin-view-progress.php?id=<?php echo $row['id'];?>">View Progress</a>                       
+                                </tr>
+                            <?php   }; ?> 
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </main>
+	</div>
+
+	<script>
+		const menu_toggle = document.querySelector('.menu-toggle');
+		const sidebar = document.querySelector('.sidebar');
+
+		menu_toggle.addEventListener('click', () => {
+			menu_toggle.classList.toggle('is-active');
+			sidebar.classList.toggle('is-active');
+		});
+	</script>
+</body>
+</html>
