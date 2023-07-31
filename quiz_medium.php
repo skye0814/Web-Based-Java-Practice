@@ -125,22 +125,22 @@ if(isset($_GET['level'])){
                     <tbody>
                     <?php if(isset($row['opt1'])){?>
                     <tr class="info">
-                        <td><input type="radio" style ="width: 15px; height:15px;" value="1" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt1']; ?> </td>
+                        <td><input type="radio" class="opts" style ="width: 15px; height:15px;" value="1" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt1']; ?> </td>
                     </tr>
                     <?php }?>
                     <?php if(isset($row['opt2'])){?>
                     <tr class="info">
-                        <td><input type="radio" style ="width: 15px; height:15px;" value="2" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt2'];?></td>
+                        <td><input type="radio" class="opts" style ="width: 15px; height:15px;" value="2" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt2'];?></td>
                     </tr>
                     <?php }?>
                     <?php if(isset($row['opt3'])){?>
                     <tr class="info">
-                        <td><input type="radio" style ="width: 15px; height:15px;" value="3" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt3'];?></td>
+                        <td><input type="radio" class="opts" style ="width: 15px; height:15px;" value="3" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt3'];?></td>
                     </tr>
                     <?php }?>
                     <?php if(isset($row['opt4'])){?>
                         <tr class="info">
-                        <td><input type="radio" style ="width: 15px; height:15px;" value="4" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt4'];?></td>
+                        <td><input type="radio" class="opts" style ="width: 15px; height:15px;" value="4" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt4'];?></td>
                     </tr>
                     <?php }?>
                     <tr class="info">
@@ -152,7 +152,7 @@ if(isset($_GET['level'])){
                     
                 </table>
             <?php $i++;}?>
-        <center><input type="submit" value="submit Quiz" class="btn-submit" /></center>
+        <center><input type="submit" value="submit Quiz" class="btn-submit" id="submitBtn" /></center>
     </form>	
     </div>
     <div class="col-sm-2"></div>
@@ -167,4 +167,24 @@ if(isset($_GET['level'])){
 </footer>
 
 </body>
+<script type="text/javascript">
+    $( document ).ready(function() {
+
+        var numberOfItems = $('tbody').length;
+        var isAllValid = false;
+
+        $('#form1').on('change', function(){
+            var itemsChecked = $('.opts:checked').length;
+
+            if (numberOfItems === itemsChecked){
+                isAllValid = true;
+            }
+            // console.log(isAllValid);
+            $('#submitBtn').prop('disabled', !isAllValid);
+        });
+    });
+
+        
+    
+    </script>
 </html>
