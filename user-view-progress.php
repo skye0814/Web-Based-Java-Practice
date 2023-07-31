@@ -141,5 +141,17 @@ $score = $fetch['score'];
     });
 
 </script>
+<style>
+    @media (min-width: 768px){
+    .dashboard {
+        position: relative;
+        left: -300px;
+    }
+    .table {
+        max-width: 250%;
+        width: 250%;
+    }
+}
+</style>
 
 </html>

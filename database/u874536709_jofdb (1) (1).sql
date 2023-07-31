@@ -439,7 +439,8 @@ CREATE TABLE `users_db` (
   `2ndQtr` varchar(500) NOT NULL DEFAULT 'locked',
   `3rdQtr` varchar(500) NOT NULL DEFAULT 'locked',
   `4thQtr` varchar(500) NOT NULL DEFAULT 'locked',
-  `user_type` varchar(50) NOT NULL DEFAULT 'user'
+  `user_type` varchar(50) NOT NULL DEFAULT 'user',
+  `isactive` TINYINT(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -558,3 +559,5 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
