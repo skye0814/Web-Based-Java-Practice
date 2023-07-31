@@ -121,7 +121,6 @@ if (isset($_GET['delete'])) {
 
     <script>
     $( document ).ready(function() {
-        console.log("tae");
         $('.card').on('click', function(){
             window.location.href = $(this).children('.topic').attr('href');
         });
