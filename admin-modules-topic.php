@@ -56,8 +56,8 @@ if (isset($_GET['delete'])) {
                 <div class="cards">
                 <div class="users">
                         <h1 class="name">Topics</h1>
-                        <a class ="backBtn" href="admin-modules.php">BACK Modules</a>
                         <a class ="addBtn" href="admin-add-module.php">Add Modules</a>
+                        <a class ="addBtn" href="admin-modules.php" style="background-color: grey">BACK Modules</a>
                         <table class="table" >
                             <thead>
                                 <tr>
