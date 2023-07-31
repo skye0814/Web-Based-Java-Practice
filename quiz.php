@@ -20,8 +20,43 @@ if (isset($_GET['level'])) {
 if (isset($_GET['Qtr'])) {
     $Qtr = $_GET['Qtr'];
 }
+$topic_sanitize = preg_replace('/%20/', ' ', $topic);
+$get_attempt = mysqli_query($conn, "SELECT * FROM user_topic_status WHERE userID ='$userID' AND topic_name = '$topic_sanitize'");
+$fetch = mysqli_fetch_array($get_attempt);
+$id = $fetch['userID'];
+$topic_name = $fetch['topic_name'];
+$attempts = $fetch['attempts'];
 
+if ($attempts >= 3) {
+    $user_attempt = mysqli_query($conn, "SELECT * FROM user_attempts WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
+    $fetch_attempt = mysqli_fetch_array($user_attempt);
 
+    if ($fetch_attempt == 0) {
+        date_default_timezone_set("Asia/Manila");
+
+        $curr_date = date("Y-m-d");
+        $curr_time = date("H:i:s");
+
+        $date_today = "$curr_date $curr_time";
+
+        mysqli_query($conn, "INSERT INTO `user_attempts`(`user_id`, `topics_id`, `expiry`) VALUES ('$userID','$topic_sanitize','$date_today')");
+        @include 'modal-quiz.php';
+    } else {
+        date_default_timezone_set("Asia/Manila");
+
+        $curr_datetime = new DateTime("now", new DateTimeZone("Asia/Manila"));
+        $expiry_datetime = new DateTime($fetch_attempt['expiry']);
+
+        $expiry_datetime->add(new DateInterval("P1D"));
+        if ($curr_datetime <= $expiry_datetime) {
+            @include 'modal-quiz.php';
+        } else {
+            mysqli_query($conn, "DELETE FROM `user_attempts` WHERE `user_id`='$userID' AND `topics_id`='$topic_sanitize'");
+
+        }
+
+    }
+}
 
 /* if(!isset($_SESSION['admin_email']) && empty($_SESSION['admin_email']) ){
     header('Location: login.php');
@@ -48,7 +83,7 @@ if (isset($_GET['Qtr'])) {
 
             if (timeLeft <= 0) {
                 clearTimeout(tm);
-               document.getElementById("form1").submit();
+                document.getElementById("form1").submit();
             } else {
                 document.getElementById("time").innerHTML = hrs + ":" + mint + ":" + sec;
             }
@@ -140,27 +175,29 @@ if (isset($_GET['Qtr'])) {
                                         <div class="question">
                                             <?php if (isset($row['opt1'])) { ?>
                                                 <tr class="info">
-                                                    <td><input type="radio" class="opts" style="width: 15px; height:15px;" value="1"
-                                                            name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt1']; ?>
+                                                    <td><input type="radio" class="opts" style="width: 15px; height:15px;"
+                                                            value="1" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt1']; ?>
                                                     </td>
                                                 </tr>
                                             <?php } ?>
                                             <?php if (isset($row['opt2'])) { ?>
                                                 <tr class="info">
-                                                    <td><input type="radio" class="opts" style="width: 15px; height:15px;" value="2"
-                                                            name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt2']; ?></td>
+                                                    <td><input type="radio" class="opts" style="width: 15px; height:15px;"
+                                                            value="2" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt2']; ?></td>
                                                 </tr>
                                             <?php } ?>
                                             <?php if (isset($row['opt3'])) { ?>
                                                 <tr class="info">
-                                                    <td><input type="radio" class="opts" style="width: 15px; height:15px; " value="3"
-                                                            name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt3']; ?></td>
+                                                    <td><input type="radio" class="opts" style="width: 15px; height:15px; "
+                                                            value="3" name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt3']; ?></td>
                                                 </tr>
                                             <?php } ?>
                                             <?php if (isset($row['opt4'])) { ?>
                                                 <tr class="info">
-                                                    <td><input type="radio" class="opts" id="opts1" style="width: 15px; height:15px;" value="4"
-                                                            name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt4']; ?></td>
+                                                    <td><input type="radio" class="opts" id="opts1"
+                                                            style="width: 15px; height:15px;" value="4"
+                                                            name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt4']; ?>
+                                                    </td>
                                                 </tr>
                                             <?php } ?>
                                         </div>
@@ -178,7 +215,7 @@ if (isset($_GET['Qtr'])) {
                                 </table>
                                 <?php $i++;
                             } ?>
-                            <center><input type="submit" value="submit Quiz" class="btn-back" id="submitBtn"/></center>
+                            <center><input type="submit" value="submit Quiz" class="btn-back" id="submitBtn" /></center>
                         </form>
                     </div>
                     <div class="col-sm-2"></div>
@@ -195,24 +232,43 @@ if (isset($_GET['Qtr'])) {
     </body>
 
     <script type="text/javascript">
-    $( document ).ready(function() {
+        $(document).ready(function () {
 
-        var numberOfItems = $('.question-body').length;
-        var isAllValid = false;
+            const modal = document.getElementById("myModal");
 
-        $('#form1').on('change', function(){
-            var itemsChecked = $('.opts:checked').length;
+            modal.style.display = "block";
 
-            if (numberOfItems === itemsChecked){
-                isAllValid = true;
-            }
-            // console.log(isAllValid);
-            $('#submitBtn').prop('disabled', !isAllValid);
+
+
+            const closeModalBtn = document.getElementById("closeModalBtn");
+            closeModalBtn.addEventListener("click", function () {
+                window.location.href = "home.php";
+            });
+
+            const closeBtn = document.getElementById("closeBTN");
+            closeBtn.addEventListener("click", function () {
+                window.location.href = "home.php";
+            });
+
+
+            var numberOfItems = $('.question-body').length;
+            var isAllValid = false;
+
+            $('#form1').on('change', function () {
+                var itemsChecked = $('.opts:checked').length;
+
+                if (numberOfItems === itemsChecked) {
+                    isAllValid = true;
+                }
+                // console.log(isAllValid);
+                $('#submitBtn').prop('disabled', !isAllValid);
+            });
+
+
         });
-    });
 
-        
-    
+
+
     </script>
 
 </html>

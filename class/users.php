@@ -52,6 +52,7 @@ class users{
             $total_qus=$right+$wrong+$no_answer;
             $per=($right*100)/($total_qus);
             $updateProg = "UPDATE user_topic_status SET progress = '$per' WHERE topic_name = '$topic' AND userID = '$userID'";
+            
             $resultProg= $this->conn->query($updateProg);
 
             $get_uname ="SELECT * FROM users_db WHERE id ='$userID'";
