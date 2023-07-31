@@ -3,8 +3,8 @@ session_start();
 @include 'config.php';
 class users{
         public $host="localhost";
-        public $username="u874536709_jof";
-        public $pass="4B@APbz8M8EWCJ#A4kVm";
+        public $username="root";
+        public $pass="";
         public $db_name="u874536709_jofdb";
         public $conn;
         public $data;

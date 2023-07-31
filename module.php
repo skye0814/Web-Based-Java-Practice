@@ -61,6 +61,7 @@ if(isset($_GET['Qtr'])){
             <ul class="dropdown-menu">
             <li><a href="home.php">Home</a></li>
             <li><a href="profile.php">Profile</a></li>
+            <li><a href="user-view-progress.php">Progress</a></li>
             <li><a href="logout.php">Sign Out</a></li>
             </ul>
         </div>
