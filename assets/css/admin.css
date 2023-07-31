@@ -638,4 +638,18 @@ tbody .quest:hover{
     }
     
 }
-
+.card {
+    width: calc(20% - 20px); /* 20% width with 10px margin on each side (max of 5 cards per row) */
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .card:hover {
+    background-color: #e0e0e0;
+  }
+  
