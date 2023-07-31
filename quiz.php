@@ -136,32 +136,34 @@ if (isset($_GET['Qtr'])) {
                                         </tr>
                                     </thead>
 
-                                    <tbody>
-                                        <?php if (isset($row['opt1'])) { ?>
-                                            <tr class="info">
-                                                <td><input type="radio" style="width: 15px; height:15px;" value="1"
-                                                        name="qradio1 '.<?php $i?>.'" />&nbsp;<?php echo $row['opt1']; ?>
-                                                </td>
-                                            </tr>
-                                        <?php } ?>
-                                        <?php if (isset($row['opt2'])) { ?>
-                                            <tr class="info">
-                                                <td><input type="radio" style="width: 15px; height:15px;" value="2"
-                                                        name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt2']; ?></td>
-                                            </tr>
-                                        <?php } ?>
-                                        <?php if (isset($row['opt3'])) { ?>
-                                            <tr class="info">
-                                                <td><input type="radio" style="width: 15px; height:15px;" value="3"
-                                                        name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt3']; ?></td>
-                                            </tr>
-                                        <?php } ?>
-                                        <?php if (isset($row['opt4'])) { ?>
-                                            <tr class="info">
-                                                <td><input type="radio" style="width: 15px; height:15px;" value="4"
-                                                        name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt4']; ?></td>
-                                            </tr>
-                                        <?php } ?>
+                                    <tbody class="question-body">
+                                        <div class="question">
+                                            <?php if (isset($row['opt1'])) { ?>
+                                                <tr class="info">
+                                                    <td><input type="radio" class="opts" style="width: 15px; height:15px;" value="1"
+                                                            name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt1']; ?>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                            <?php if (isset($row['opt2'])) { ?>
+                                                <tr class="info">
+                                                    <td><input type="radio" class="opts" style="width: 15px; height:15px;" value="2"
+                                                            name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt2']; ?></td>
+                                                </tr>
+                                            <?php } ?>
+                                            <?php if (isset($row['opt3'])) { ?>
+                                                <tr class="info">
+                                                    <td><input type="radio" class="opts" style="width: 15px; height:15px; " value="3"
+                                                            name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt3']; ?></td>
+                                                </tr>
+                                            <?php } ?>
+                                            <?php if (isset($row['opt4'])) { ?>
+                                                <tr class="info">
+                                                    <td><input type="radio" class="opts" id="opts1" style="width: 15px; height:15px;" value="4"
+                                                            name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt4']; ?></td>
+                                                </tr>
+                                            <?php } ?>
+                                        </div>
                                         <tr class="info">
                                             <td><input type="radio" checked="checked" style="display:none"
                                                     value="no_attempt" name="<?php echo $row['id']; ?>" /></td>
@@ -176,7 +178,7 @@ if (isset($_GET['Qtr'])) {
                                 </table>
                                 <?php $i++;
                             } ?>
-                            <center><input type="submit" value="submit Quiz" class="btn-back" /></center>
+                            <center><input type="submit" value="submit Quiz" class="btn-back" id="submitBtn"/></center>
                         </form>
                     </div>
                     <div class="col-sm-2"></div>
@@ -191,5 +193,26 @@ if (isset($_GET['Qtr'])) {
         </footer>
 
     </body>
+
+    <script type="text/javascript">
+    $( document ).ready(function() {
+
+        var numberOfItems = $('.question-body').length;
+        var isAllValid = false;
+
+        $('#form1').on('change', function(){
+            var itemsChecked = $('.opts:checked').length;
+
+            if (numberOfItems === itemsChecked){
+                isAllValid = true;
+            }
+            // console.log(isAllValid);
+            $('#submitBtn').prop('disabled', !isAllValid);
+        });
+    });
+
+        
+    
+    </script>
 
 </html>
