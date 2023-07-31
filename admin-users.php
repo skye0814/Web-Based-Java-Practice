@@ -14,19 +14,19 @@ if (isset($_GET['delete'])) {
     mysqli_query($conn, "DELETE FROM user_topic_status WHERE userID = '$id'");
     header('location:admin-users.php');
 
-}else if(isset($_GET['edit'])){
+} else if (isset($_GET['edit'])) {
 
     $id = $_GET['edit'];
     $select = mysqli_query($conn, "SELECT * FROM users_db  WHERE id = '$id'");
     $row = mysqli_fetch_assoc($select);
 
-    if($row['isactive'] == 0){
+    if ($row['isactive'] == 0) {
         mysqli_query($conn, "UPDATE users_db SET `isactive`=1 WHERE id = '$id'");
-    }else if($row['isactive'] == 1){
+    } else if ($row['isactive'] == 1) {
         mysqli_query($conn, "UPDATE users_db SET `isactive`=0 WHERE id = '$id'");
     }
-   
-   
+
+
 
     header('location:admin-users.php');
 }
@@ -116,12 +116,20 @@ if (isset($_GET['delete'])) {
                                             ?>
                                         </td>
                                         <td data-label="ACTION: " class="btns">
-                                        <a class="delete" href="admin-users.php?edit=<?php echo $row['id']; ?>">Edit
+                                            <a class="delete" href="admin-users.php?edit=<?php echo $row['id']; ?>">Edit
                                                 Status</a>
                                             <a class="delete" href="admin-users.php?delete=<?php echo $row['id']; ?>">Delete
                                                 User</a>
-                                            <a class="quest" href="admin-view-progress.php?id=<?php echo $row['id']; ?>">View
+
+                                            <?php  
+                                            if($row['user_type'] == "user"){
+
+                                          
+                                            ?>
+                                            <a class="quest"
+                                                href="admin-view-progress.php?id=<?php echo $row['id']; ?>">View
                                                 Progress</a>
+                                            <?php   } ?>
                                         </td>
                                     </tr>
                                 <?php }

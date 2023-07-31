@@ -48,7 +48,7 @@ if (isset($_GET['Qtr'])) {
 
             if (timeLeft <= 0) {
                 clearTimeout(tm);
-                document.getElementById("form1").submit();
+               document.getElementById("form1").submit();
             } else {
                 document.getElementById("time").innerHTML = hrs + ":" + mint + ":" + sec;
             }
@@ -140,7 +140,7 @@ if (isset($_GET['Qtr'])) {
                                         <?php if (isset($row['opt1'])) { ?>
                                             <tr class="info">
                                                 <td><input type="radio" style="width: 15px; height:15px;" value="1"
-                                                        name="<?php echo $row['id']; ?>" />&nbsp;<?php echo $row['opt1']; ?>
+                                                        name="qradio1 '.<?php $i?>.'" />&nbsp;<?php echo $row['opt1']; ?>
                                                 </td>
                                             </tr>
                                         <?php } ?>

@@ -13,6 +13,11 @@ $username = $fetch['username'];
 $score = $fetch['score'];
 
 require('fpdf/fpdf.php');
+$manilaTimeZone = new DateTimeZone('Asia/Manila');
+
+$manilaDateTime = new DateTime('now', $manilaTimeZone);
+$manilaTime = $manilaDateTime->format('M-d-Y H:i:s');
+
 
 $pdf = new FPDF();
 $pdf->AddPage();
@@ -33,6 +38,8 @@ $pdf->SetFont('Arial','',12);
 
 $pdf->SetFont('Arial','B',15);
 $pdf->Cell(71 ,5,'USER PROGRESS REPORT',0,5,"C");
+$pdf->Cell(20 ,5,'Date:',0,0);
+$pdf->Cell(10 ,5, $manilaTime,0,0);
 $pdf->Cell(59 ,5,'',0,0);
 $pdf->Cell(59 ,5,'',0,1);
 
@@ -42,7 +49,8 @@ $pdf->Cell(34 ,5,$id,0,1);
 $pdf->Cell(30 ,5,'Username: ',0,0);
 $pdf->Cell(34 ,5,$username,0,1);
 $pdf->Cell(30 ,5,'Total Score: ',0,0);
-$pdf->Cell(34 ,5,$score,0,1);
+$pdf->Cell(5, 5, '', 0, 0); // Add a blank cell to create spacing
+$pdf->Cell(30 ,5, $score ,0,1);
 
 $pdf->Cell(34 ,5,'',0,1);
 

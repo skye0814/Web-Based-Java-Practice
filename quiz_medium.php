@@ -35,7 +35,7 @@ if(isset($_GET['level'])){
 	function timeout()
 	{
 		var hours=Math.floor(timeLeft/3600);
-		var minute=Math.floor((timeLeft-(hours*60*60)-30)/60);
+		var minute=Math.floor((timeLeft-(hours*60*60))/60);
 		var second=timeLeft%60;
 		var hrs=checktime(hours);
 		var mint=checktime(minute);
