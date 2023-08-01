@@ -17,6 +17,10 @@ $fetch = mysqli_fetch_array($get_uname);
 $id=$fetch['id'];
 $username = $fetch['username'];
 $score = $fetch['score'];
+$manilaTimeZone = new DateTimeZone('Asia/Manila');
+
+$manilaDateTime = new DateTime('now', $manilaTimeZone);
+$manilaTime = $manilaDateTime->format('M-d-Y H:i:s');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +60,10 @@ $score = $fetch['score'];
                             <div class="details">
                                 <h1>USER PROGRESS</h1>
                                 <div class="deets">
+                                    <h1>Date:</h1>
+                                    <p><?php echo $manilaTime ?></p>
+                                </div>
+                                <div class="deets">
                                     <h1>User ID:</h1>
                                     <p><?php echo $id ?></p>
                                 </div>
@@ -67,6 +75,7 @@ $score = $fetch['score'];
                                     <h1>Total Score:</h1>
                                     <p><?php echo $score ?></p>
                                 </div>
+
                             </div>
                             <div class="reportBtn">
                                 <a class ="addBtn" href="admin-generate-progress.php?id=<?php echo $userid?>">Generate Report</a>

@@ -31,6 +31,8 @@ if ($attempts >= 3) {
     $user_attempt = mysqli_query($conn, "SELECT * FROM user_attempts WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
     $fetch_attempt = mysqli_fetch_array($user_attempt);
 
+   
+
     if ($fetch_attempt == 0) {
         date_default_timezone_set("Asia/Manila");
 
@@ -39,7 +41,7 @@ if ($attempts >= 3) {
 
         $date_today = "$curr_date $curr_time";
 
-        mysqli_query($conn, "INSERT INTO `user_attempts`(`user_id`, `topics_id`, `expiry`) VALUES ('$userID','$topic_sanitize','$date_today')");
+        mysqli_query($conn, "INSERT INTO `user_attempts`(`user_id`, `topics_id`, `expiry`, `isactive`) VALUES ('$userID','$topic_sanitize','$date_today', 1)");
         @include 'modal-quiz.php';
     } else {
         date_default_timezone_set("Asia/Manila");
@@ -48,12 +50,17 @@ if ($attempts >= 3) {
         $expiry_datetime = new DateTime($fetch_attempt['expiry']);
 
         $expiry_datetime->add(new DateInterval("P1D"));
-        if ($curr_datetime <= $expiry_datetime) {
+                                                                                                                                                                                                                       
+        $expiry_string = $expiry_datetime->format('M-d-Y h:i:s a');
+
+        if ($curr_datetime <= $expiry_datetime &&  $fetch_attempt['isactive'] = 1) {
             @include 'modal-quiz.php';
         } else {
-            mysqli_query($conn, "DELETE FROM `user_attempts` WHERE `user_id`='$userID' AND `topics_id`='$topic_sanitize'");
+            mysqli_query($conn, " UPDATE `user_topic_status` SET `attempts`= 0 WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
+           
+            mysqli_query($conn, "DELETE FROM `user_attempts` WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
 
-        }
+        } 
 
     }
 }
@@ -235,32 +242,36 @@ if ($attempts >= 3) {
         $(document).ready(function () {
 
             const modal = document.getElementById("myModal");
-
-            modal.style.display = "block";
-
-
-
             const closeModalBtn = document.getElementById("closeModalBtn");
-            closeModalBtn.addEventListener("click", function () {
+            const closeBtn = document.getElementById("closeBTN");
+            if (modal) {
+               
+                modal.style.display = "block";
+
+                closeModalBtn.addEventListener("click", function () {
                 window.location.href = "home.php";
             });
 
-            const closeBtn = document.getElementById("closeBTN");
+           
             closeBtn.addEventListener("click", function () {
                 window.location.href = "home.php";
             });
+            }
+
+           
+          
 
 
             var numberOfItems = $('.question-body').length;
             var isAllValid = false;
-
+            $('#submitBtn').prop('disabled', true);
             $('#form1').on('change', function () {
                 var itemsChecked = $('.opts:checked').length;
 
                 if (numberOfItems === itemsChecked) {
                     isAllValid = true;
                 }
-                // console.log(isAllValid);
+                console.log(isAllValid);
                 $('#submitBtn').prop('disabled', !isAllValid);
             });
 
