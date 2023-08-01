@@ -6,6 +6,18 @@ if(isset($_GET['id'])){
 
     $userid = $_GET['id'];
 }
+
+if (isset($_POST['image'])) {
+    $imageData = $_POST['image'];
+  
+    $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
+    $decodedImage = base64_decode($imageData);
+  
+    $imagePath = 'images/chart.jpeg';
+  
+    file_put_contents($imagePath, $decodedImage);
+}
+
 $get_uname = mysqli_query($conn, "SELECT * FROM users_db WHERE id ='$userid'");
 $fetch = mysqli_fetch_array($get_uname);
 $id=$fetch['id'];
@@ -25,7 +37,7 @@ $pdf = new FPDF();
 $pdf->AddPage();
 /* Column headings */
 $pdf->Image('images/logo.png',10,6,30);
-
+$pdf->Image('images/chart.jpeg',30,190,150,100);
 $pdf->SetFont('Arial','',12);
 $pdf->SetTextColor(255,255,255,1);
 $pdf -> Cell(103,30,"Users Report","0","1","C");

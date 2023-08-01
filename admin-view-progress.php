@@ -102,6 +102,8 @@ $lowest_topic = $fetch['topic_lowest'];
                             </div>
                             <div class="reportBtn">
                                 <a class ="addBtn" href="admin-generate-progress.php?id=<?php echo $userid?>">Generate Report</a>
+                                
+                                <input type="hidden" id="id" value="<?php echo $userid ?>">
                             </div>
                         </div>
                         <table class="table" style=" margin-top:10px" >
@@ -127,12 +129,7 @@ $lowest_topic = $fetch['topic_lowest'];
                             </tbody>
                         </table>
                             <canvas id="myChart" style="width:100%;max-width:500px;max-height:100%"></canvas>
-                            <div id="project-image"><div>
-                            <canvas id="mycanvas"></canvas>
-                            <a id="downloadlink" 
-                            href="#" download>
-                                DOWNLOAD
-                            </a>
+                            
                         
                     </div>
             </div>
@@ -234,24 +231,47 @@ $lowest_topic = $fetch['topic_lowest'];
                     }
                 },
             });
+          
 
-            const image = ReImg.fromCanvas(ctx).toPng();
-            const image2 = ctx.toDataURL('image/jpeg');
-            console.log(image.src);
 
-            // var canvas = document.getElementById("mycanvas");
-            // var downloadlink = document.getElementById("downloadlink");
-            // var ctxs = canvas.getContext("2d");
-            // ctxs.strokeStyle = "yellow";
-            // ctxs.lineWidth = 4;
-            // ctxs.beginPath();
-            // ctxs.arc(100,75,50,0,Math.PI*2);
-            // ctxs.stroke();
-            var imagedata = image.src;
-            downloadlink.href = imagedata;
+    
+           
         });
 
-		
+        document.querySelector(".addBtn").addEventListener("click", function () {
+   
+        var chartCanvas = document.getElementById("myChart");
+
+        var id =document.getElementById("id");
+        var newCanvas = document.createElement("canvas");
+      newCanvas.width = chartCanvas.width;
+      newCanvas.height = chartCanvas.height;
+      var newContext = newCanvas.getContext("2d");
+
+      // Set a white background
+      newContext.fillStyle = "white";
+      newContext.fillRect(0, 0, newCanvas.width, newCanvas.height);
+
+      // Draw the chart on the new canvas
+      newContext.drawImage(chartCanvas, 0, 0);
+
+    
+        var dataURL = newCanvas.toDataURL("image/jpeg", 1.0);
+        
+
+    $.ajax({
+        type: "POST",
+        url: "admin-generate-progress.php",
+        data: { image: dataURL },
+        success: function (response) {
+          console.log("Report generated successfully!");
+        },
+        error: function (error) {
+          console.error("Error generating report: ", error);
+        },
+      });
+   
+  });
 	</script>
     
 </body>
