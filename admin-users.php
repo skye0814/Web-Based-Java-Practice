@@ -74,7 +74,10 @@ if (isset($_GET['delete'])) {
                                 <tr>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Score</td>
+                                    <th>TOPIC</td>
+                                    <th>Hi-Score</td>
+                                    <th>TOPIC</td>
+                                    <th>Low-Score</td>
                                     <th>User Type</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -82,8 +85,24 @@ if (isset($_GET['delete'])) {
                             </thead>
                             <tbody>
                                 <?php
+
+
                                 $select = mysqli_query($conn, "SELECT * FROM users_db");
+
                                 while ($row = mysqli_fetch_assoc($select)) {
+                                    $id = $row['id'];
+                                    $hiqry = mysqli_query($conn, "SELECT *
+                             FROM user_topic_status
+                             WHERE userID = '$id'
+                             AND score = (SELECT MAX(score) FROM user_topic_status WHERE userID = '$id')");
+
+                                    // Get the row with the lowest score
+                                    $lowqry = mysqli_query($conn, "SELECT *
+                              FROM user_topic_status
+                              WHERE userID = '$id'
+                              AND score = (SELECT MIN(score) FROM user_topic_status WHERE userID = '$id')");
+                                    $hifetch = mysqli_fetch_assoc($hiqry);
+                                    $lowfetch = mysqli_fetch_assoc($lowqry);
                                     ?>
                                     <tr>
                                         <td data-label="USERNAME:">
@@ -96,9 +115,26 @@ if (isset($_GET['delete'])) {
                                                 <?php echo $row['email']; ?>
                                             </h5>
                                         </td>
-                                        <td data-label="SCORE:">
+                                        <td data-label="TOPIC:">
                                             <h5>
-                                                <?php echo $row['score']; ?>
+                                                <?php echo $hifetch['topic_name']; ?>
+                                            </h5>
+                                        </td>
+
+                                        <td data-label="HI-SCORE:">
+                                            <h5>
+                                                <?php echo $hifetch['score']; ?>
+                                            </h5>
+                                        </td>
+                                        <td data-label="TOPIC:">
+                                            <h5>
+                                                <?php echo $lowfetch['topic_name']; ?>
+                                            </h5>
+                                        </td>
+
+                                        <td data-label="LOW-SCORE:">
+                                            <h5>
+                                                <?php echo $lowfetch['score']; ?>
                                             </h5>
                                         </td>
                                         <td data-label="USER TYPE:">
@@ -121,15 +157,15 @@ if (isset($_GET['delete'])) {
                                             <a class="delete" href="admin-users.php?delete=<?php echo $row['id']; ?>">Delete
                                                 User</a>
 
-                                            <?php  
-                                            if($row['user_type'] == "user"){
+                                            <?php
+                                            if ($row['user_type'] == "user") {
 
-                                          
-                                            ?>
-                                            <a class="quest"
-                                                href="admin-view-progress.php?id=<?php echo $row['id']; ?>">View
-                                                Progress</a>
-                                            <?php   } ?>
+
+                                                ?>
+                                                <a class="quest"
+                                                    href="admin-view-progress.php?id=<?php echo $row['id']; ?>">View
+                                                    Progress</a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php }
