@@ -27,11 +27,18 @@ $manilaTime = $manilaDateTime->format('M-d-Y H:i:s');
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <!-- @* ChartJS *@ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient"></script>
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Java Practice </title>
 	<link rel="stylesheet" href="./assets/css/admin.css" />
+    
 </head>
 <body>
+
 	<div class="app">
 		<div class="menu-toggle">
 			<div class="hamburger">
@@ -96,26 +103,117 @@ $manilaTime = $manilaDateTime->format('M-d-Y H:i:s');
                                 while($row = mysqli_fetch_assoc($select)){
                             ?>
                                 <tr>
-                                    <td data-label=" TOPIC NAME:"><h5><?php echo $row['topic_name']; ?></h5></td>
-                                    <td data-label="PROGRESS:"><h5><?php echo $row['progress']; ?>%</h5></td>
+                                    <td data-label=" TOPIC NAME:"><h5 class="topic-name"><?php echo $row['topic_name']; ?></h5></td>
+                                    <td data-label="PROGRESS:"><h5 class="progress-value"><?php echo $row['progress']; ?>%</h5></td>
                                     <td data-label="ATTEMPTS:"><h5><?php echo $row['attempts']; ?></h5></td>
                                 </tr>
                             <?php   }; ?> 
                             </tbody>
                         </table>
+                            <canvas id="myChart" style="width:100%;max-width:500px;max-height:100%"></canvas>
+                        
                     </div>
             </div>
         </main>
 	</div>
 
 	<script>
-		const menu_toggle = document.querySelector('.menu-toggle');
-		const sidebar = document.querySelector('.sidebar');
+        $(document).ready(function(){
+            const menu_toggle = document.querySelector('.menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
 
-		menu_toggle.addEventListener('click', () => {
-			menu_toggle.classList.toggle('is-active');
-			sidebar.classList.toggle('is-active');
-		});
+            menu_toggle.addEventListener('click', () => {
+                menu_toggle.classList.toggle('is-active');
+                sidebar.classList.toggle('is-active');
+            });
+            
+            // For chartjs
+            var yValues = [];
+            var xValues = [];
+
+            $(".topic-name").each(function() {
+                xValues.push($(this).text());
+            });
+
+            $(".progress-value").each(function() {
+                var str = $(this).text();
+                yValues.push(str.substring(0, str.length-1));
+            });
+
+            
+            // Instantiate new table
+            var ctx = document.getElementById('myChart');
+            var newChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: [
+                            'rgb(68 172 172)'
+                        ],
+                        borderColor: [
+                            'rgb(6 33 54)'
+                        ],
+                        borderWidth: 3,
+                        data: yValues,
+                        barThickness: 20,
+                        label: "Progress",
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    resizeDelay: 0,
+                    indexAxis: 'x',
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            title: {
+                                font: {
+                                    family: 'Product Sans'
+                                }
+                            },
+                            font: {
+                                family: 'Product Sans'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                precision: 0
+                            },
+                            max: 100
+                            
+                        }
+                    },
+                    layout: {
+                        padding: 0
+                    },
+                    plugins: {
+                        legend: {
+                            display: false,
+                            labels: {
+                                font: {
+                                    family: 'Product Sans'
+                                }
+                            }
+                        },
+                        title: {
+                            display: false,
+                            text: "Topics Progress"
+                        }
+                    }
+                },
+            });
+        });
+
+		
 	</script>
+    
 </body>
 </html>
