@@ -21,6 +21,14 @@ $manilaTimeZone = new DateTimeZone('Asia/Manila');
 
 $manilaDateTime = new DateTime('now', $manilaTimeZone);
 $manilaTime = $manilaDateTime->format('M-d-Y H:i:s');
+
+$get_highest_score = mysqli_query($conn, "SELECT (SELECT topic_name FROM user_topic_status WHERE score = (SELECT MAX(score) FROM user_topic_status) LIMIT 1) AS topic_highest FROM user_topic_status LIMIT 1");
+$fetch = mysqli_fetch_array($get_highest_score);
+$highest_topic = $fetch['topic_highest'];
+
+$get_lowest_score = mysqli_query($conn, "SELECT (SELECT topic_name FROM user_topic_status WHERE score = (SELECT MIN(score) FROM user_topic_status) LIMIT 1) AS topic_lowest FROM user_topic_status LIMIT 1");
+$fetch = mysqli_fetch_array($get_lowest_score);
+$lowest_topic = $fetch['topic_lowest'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,6 +89,14 @@ $manilaTime = $manilaDateTime->format('M-d-Y H:i:s');
                                 <div class="deets">
                                     <h1>Total Score:</h1>
                                     <p><?php echo $score ?></p>
+                                </div>
+                                <div class="deets">
+                                    <h1>Topic Strongest:</h1>
+                                    <p><?php echo $highest_topic ?></p>
+                                </div>
+                                <div class="deets">
+                                    <h1>Topic Weakest:</h1>
+                                    <p><?php echo $lowest_topic ?></p>
                                 </div>
 
                             </div>
