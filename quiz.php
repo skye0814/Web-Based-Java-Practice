@@ -23,47 +23,50 @@ if (isset($_GET['Qtr'])) {
 $topic_sanitize = preg_replace('/%20/', ' ', $topic);
 $get_attempt = mysqli_query($conn, "SELECT * FROM user_topic_status WHERE userID ='$userID' AND topic_name = '$topic_sanitize'");
 $fetch = mysqli_fetch_array($get_attempt);
-$id = $fetch['userID'];
-$topic_name = $fetch['topic_name'];
-$attempts = $fetch['attempts'];
+if ($fetch) {
+    $id = $fetch['userID'];
+    $topic_name = $fetch['topic_name'];
+    $attempts = $fetch['attempts'];
+    if ($attempts >= 3) {
+        $user_attempt = mysqli_query($conn, "SELECT * FROM user_attempts WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
+        $fetch_attempt = mysqli_fetch_array($user_attempt);
 
-if ($attempts >= 3) {
-    $user_attempt = mysqli_query($conn, "SELECT * FROM user_attempts WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
-    $fetch_attempt = mysqli_fetch_array($user_attempt);
 
-   
 
-    if ($fetch_attempt == 0) {
-        date_default_timezone_set("Asia/Manila");
+        if ($fetch_attempt == 0) {
+            date_default_timezone_set("Asia/Manila");
 
-        $curr_date = date("Y-m-d");
-        $curr_time = date("H:i:s");
+            $curr_date = date("Y-m-d");
+            $curr_time = date("H:i:s");
 
-        $date_today = "$curr_date $curr_time";
+            $date_today = "$curr_date $curr_time";
 
-        mysqli_query($conn, "INSERT INTO `user_attempts`(`user_id`, `topics_id`, `expiry`, `isactive`) VALUES ('$userID','$topic_sanitize','$date_today', 1)");
-        @include 'modal-quiz.php';
-    } else {
-        date_default_timezone_set("Asia/Manila");
-
-        $curr_datetime = new DateTime("now", new DateTimeZone("Asia/Manila"));
-        $expiry_datetime = new DateTime($fetch_attempt['expiry']);
-
-        $expiry_datetime->add(new DateInterval("P1D"));
-                                                                                                                                                                                                                       
-        $expiry_string = $expiry_datetime->format('M-d-Y h:i:s a');
-
-        if ($curr_datetime <= $expiry_datetime &&  $fetch_attempt['isactive'] = 1) {
+            mysqli_query($conn, "INSERT INTO `user_attempts`(`user_id`, `topics_id`, `expiry`, `isactive`) VALUES ('$userID','$topic_sanitize','$date_today', 1)");
             @include 'modal-quiz.php';
         } else {
-            mysqli_query($conn, " UPDATE `user_topic_status` SET `attempts`= 0 WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
-           
-            mysqli_query($conn, "DELETE FROM `user_attempts` WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
+            date_default_timezone_set("Asia/Manila");
 
-        } 
+            $curr_datetime = new DateTime("now", new DateTimeZone("Asia/Manila"));
+            $expiry_datetime = new DateTime($fetch_attempt['expiry']);
 
+            $expiry_datetime->add(new DateInterval("P1D"));
+
+            $expiry_string = $expiry_datetime->format('M-d-Y h:i:s a');
+
+            if ($curr_datetime <= $expiry_datetime && $fetch_attempt['isactive'] = 1) {
+                @include 'modal-quiz.php';
+            } else {
+                mysqli_query($conn, " UPDATE `user_topic_status` SET `attempts`= 0 WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
+
+                mysqli_query($conn, "DELETE FROM `user_attempts` WHERE user_id ='$userID' AND topics_id = '$topic_sanitize'");
+
+            }
+
+        }
     }
 }
+
+
 
 /* if(!isset($_SESSION['admin_email']) && empty($_SESSION['admin_email']) ){
     header('Location: login.php');
@@ -245,21 +248,21 @@ if ($attempts >= 3) {
             const closeModalBtn = document.getElementById("closeModalBtn");
             const closeBtn = document.getElementById("closeBTN");
             if (modal) {
-               
+
                 modal.style.display = "block";
 
                 closeModalBtn.addEventListener("click", function () {
-                window.location.href = "home.php";
-            });
+                    window.location.href = "home.php";
+                });
 
-           
-            closeBtn.addEventListener("click", function () {
-                window.location.href = "home.php";
-            });
+
+                closeBtn.addEventListener("click", function () {
+                    window.location.href = "home.php";
+                });
             }
 
-           
-          
+
+
 
 
             var numberOfItems = $('.question-body').length;

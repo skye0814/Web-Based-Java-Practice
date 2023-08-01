@@ -86,6 +86,7 @@ $score = $fetch['score'];
                             <tr>
                                 <th>Topic</th>
                                 <th>Progress</td>
+                                <th>Score</td>
                                 <th>Attempts</td>
                             </tr>
                         </thead>
@@ -104,6 +105,11 @@ $score = $fetch['score'];
                                     <td data-label="PROGRESS:">
                                         <h5>
                                             <?php echo $row['progress']; ?>%
+                                        </h5>
+                                    </td>
+                                    <td data-label="SCORE:">
+                                        <h5>
+                                            <?php echo $row['score']; ?>
                                         </h5>
                                     </td>
                                     <td data-label="ATTEMPTS:">
