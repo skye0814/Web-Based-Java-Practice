@@ -39,7 +39,7 @@ $lowest_topic = $fetch['topic_lowest'];
     <!-- @* ChartJS *@ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient"></script>
-
+    <script src="scripts/reimg.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Java Practice </title>
 	<link rel="stylesheet" href="./assets/css/admin.css" />
@@ -127,6 +127,12 @@ $lowest_topic = $fetch['topic_lowest'];
                             </tbody>
                         </table>
                             <canvas id="myChart" style="width:100%;max-width:500px;max-height:100%"></canvas>
+                            <div id="project-image"><div>
+                            <canvas id="mycanvas"></canvas>
+                            <a id="downloadlink" 
+                            href="#" download>
+                                DOWNLOAD
+                            </a>
                         
                     </div>
             </div>
@@ -143,89 +149,106 @@ $lowest_topic = $fetch['topic_lowest'];
                 sidebar.classList.toggle('is-active');
             });
             
-            // // For chartjs
-            // var yValues = [];
-            // var xValues = [];
+            // For chartjs
+            var yValues = [];
+            var xValues = [];
 
-            // $(".topic-name").each(function() {
-            //     xValues.push($(this).text());
-            // });
+            $(".topic-name").each(function() {
+                xValues.push($(this).text());
+            });
 
-            // $(".progress-value").each(function() {
-            //     var str = $(this).text();
-            //     yValues.push(str.substring(0, str.length-1));
-            // });
+            $(".progress-value").each(function() {
+                var str = $(this).text();
+                yValues.push(str.substring(0, str.length-1));
+            });
 
             
-            // // Instantiate new table
-            // var ctx = document.getElementById('myChart');
-            // var newChart = new Chart(ctx, {
-            //     type: "bar",
-            //     data: {
-            //         labels: xValues,
-            //         datasets: [{
-            //             backgroundColor: [
-            //                 'rgb(68 172 172)'
-            //             ],
-            //             borderColor: [
-            //                 'rgb(6 33 54)'
-            //             ],
-            //             borderWidth: 3,
-            //             data: yValues,
-            //             barThickness: 20,
-            //             label: "Progress",
-            //             borderRadius: 5
-            //         }]
-            //     },
-            //     options: {
-            //         responsive: true,
-            //         maintainAspectRatio: true,
-            //         resizeDelay: 0,
-            //         indexAxis: 'x',
-            //         scales: {
-            //             x: {
-            //                 grid: {
-            //                     display: false
-            //                 },
-            //                 title: {
-            //                     font: {
-            //                         family: 'Product Sans'
-            //                     }
-            //                 },
-            //                 font: {
-            //                     family: 'Product Sans'
-            //                 }
-            //             },
-            //             y: {
-            //                 grid: {
-            //                     display: false
-            //                 },
-            //                 ticks: {
-            //                     precision: 0
-            //                 },
-            //                 max: 100
+            // Instantiate new table
+            var ctx = document.getElementById('myChart');
+            var newChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: [
+                            'rgb(68 172 172)'
+                        ],
+                        borderColor: [
+                            'rgb(6 33 54)'
+                        ],
+                        borderWidth: 3,
+                        data: yValues,
+                        barThickness: 20,
+                        label: "Progress",
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    bezierCurve : false,
+                    onAnimationComplete: "done",
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    resizeDelay: 0,
+                    indexAxis: 'x',
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            title: {
+                                font: {
+                                    family: 'Product Sans'
+                                }
+                            },
+                            font: {
+                                family: 'Product Sans'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                precision: 0
+                            },
+                            max: 100
                             
-            //             }
-            //         },
-            //         layout: {
-            //             padding: 0
-            //         },
-            //         plugins: {
-            //             legend: {
-            //                 display: false,
-            //                 labels: {
-            //                     font: {
-            //                         family: 'Product Sans'
-            //                     }
-            //                 }
-            //             },
-            //             title: {
-            //                 display: false,
-            //                 text: "Topics Progress"
-            //             }
-            //         }
-            //     },
-            // });
+                        }
+                    },
+                    layout: {
+                        padding: 0
+                    },
+                    plugins: {
+                        legend: {
+                            display: false,
+                            labels: {
+                                font: {
+                                    family: 'Product Sans'
+                                }
+                            }
+                        },
+                        title: {
+                            display: false,
+                            text: "Topics Progress"
+                        }
+                    }
+                },
+            });
+
+            const image = ReImg.fromCanvas(ctx).toPng();
+            const image2 = ctx.toDataURL('image/jpeg');
+            console.log(image.src);
+
+            // var canvas = document.getElementById("mycanvas");
+            // var downloadlink = document.getElementById("downloadlink");
+            // var ctxs = canvas.getContext("2d");
+            // ctxs.strokeStyle = "yellow";
+            // ctxs.lineWidth = 4;
+            // ctxs.beginPath();
+            // ctxs.arc(100,75,50,0,Math.PI*2);
+            // ctxs.stroke();
+            var imagedata = image.src;
+            downloadlink.href = imagedata;
         });
 
 		
