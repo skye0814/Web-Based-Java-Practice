@@ -18,8 +18,8 @@
             header("Location:register.php?error=Email Already Registered");
             exit();
         }else{
-                $query = "INSERT INTO users_db (id, email, username , password) 
-                VALUES ('$id', '$email','$username', '$password')";
+                $query = "INSERT INTO users_db (id, email, username , password, isactive) 
+                VALUES ('$id', '$email','$username', '$password' , 1)";
                 $query_run= mysqli_query($conn, $query);
                 if($query_run){
                     $select = mysqli_query($conn, "SELECT * FROM topics_db");

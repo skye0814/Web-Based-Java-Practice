@@ -109,7 +109,7 @@ $interval = $endTime - $startTime;
                     if($interval<60){
                         echo $interval. ' second(s)';
                     }
-                    else if($interval >=60 && $interrval<3600){
+                    else if($interval >=60 && $interval<3600){
                         echo $interval. ' second(s)';
                     }
                     
@@ -123,49 +123,49 @@ $interval = $endTime - $startTime;
                     if($interval<60){
                         echo 'You answered too fast';
                     }
-                    else if($interval >60 && $interrval<120){ 
+                    else if($interval >60 && $interval<120){ 
                          echo 'You are so fast, slow down';
                     }
-                    else if($interval >=120 && $interrval<180){
+                    else if($interval >=120 && $interval<180){
                          echo 'You answered like Flash';
                     }
-                    else if($interval >=180 && $interrval<240){
+                    else if($interval >=180 && $interval<240){
                          echo 'You answered questions too quick';
                     }
-                    else if($interval >=240 && $interrval<300){
+                    else if($interval >=240 && $interval<300){
                          echo 'You are getting into it';
                     }
-                    else if($interval >=300 && $interrval<360){
+                    else if($interval >=300 && $interval<360){
                          echo 'Make sure to read and understand each questions';
                     }
-                    else if($interval >=360 && $interrval<420){
+                    else if($interval >=360 && $interval<420){
                          echo 'Make sure to maximize your time';
                     }
-                    else if($interval >=420 && $interrval<480){
+                    else if($interval >=420 && $interval<480){
                          echo 'Make sure you read the question clearly';
                     }
-                    else if($interval >=480 && $interrval<540){
+                    else if($interval >=480 && $interval<540){
                          echo 'You are one step closer';
                     }
-                    else if($interval >=540 && $interrval<600){
+                    else if($interval >=540 && $interval<600){
                          echo 'You answered like a human';
                     }
-                    else if($interval >=600&& $interrval<660){
+                    else if($interval >=600&& $interval<660){
                          echo 'You answered a little bit on time';
                     }
-                    else if($interval >=660 && $interrval<720){
+                    else if($interval >=660 && $interval<720){
                          echo 'You need a little bit of practice';
                     }
-                    else if($interval >=720 && $interrval<780){
+                    else if($interval >=720 && $interval<780){
                          echo 'You need some practice';
                     }
-                    else if($interval >=780 && $interrval<840){
+                    else if($interval >=780 && $interval<840){
                          echo 'You answered slow';
                     }
-                    else if($interval >=840 && $interrval<900){
+                    else if($interval >=840 && $interval<900){
                          echo 'You answered like a snail';
                     }
-                    else if($interval >=900 && $interrval<960){
+                    else if($interval >=900 && $interval<960){
                          echo 'You answered like a snail';
                     }
                     
