@@ -240,6 +240,19 @@ if ($attempts >= 3) {
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#submitBtn').prop('disabled', true);
+            var numberOfItems = $('.question-body').length;
+            var isAllValid = false;
+
+            $('#form1').on('change', function () {
+                var itemsChecked = $('.opts:checked').length;
+
+                if (numberOfItems === itemsChecked) {
+                    isAllValid = true;
+                }
+                // console.log(isAllValid);
+                $('#submitBtn').prop('disabled', !isAllValid);
+            });
 
             const modal = document.getElementById("myModal");
             const closeModalBtn = document.getElementById("closeModalBtn");

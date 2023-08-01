@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jul 15, 2023 at 01:55 PM
--- Server version: 10.6.12-MariaDB-cll-lve
--- PHP Version: 7.2.34
+-- Host: localhost:3306
+-- Generation Time: Aug 01, 2023 at 12:35 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `modules_db` (
-  `id` int(11) NOT NULL,
-  `topic_name` varchar(500) NOT NULL,
-  `module_name` varchar(500) NOT NULL,
-  `topic_level` varchar(500) NOT NULL
+  `id` int NOT NULL,
+  `topic_name` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `module_name` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `topic_level` varchar(500) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -100,15 +100,15 @@ INSERT INTO `modules_db` (`id`, `topic_name`, `module_name`, `topic_level`) VALU
 --
 
 CREATE TABLE `question_db` (
-  `id` int(11) NOT NULL,
-  `question` varchar(500) NOT NULL,
-  `opt1` varchar(500) NOT NULL,
-  `opt2` varchar(500) NOT NULL,
-  `opt3` varchar(500) NOT NULL,
-  `opt4` varchar(500) NOT NULL,
-  `answer` varchar(20) NOT NULL,
-  `level` varchar(50) NOT NULL,
-  `topic` varchar(5000) NOT NULL
+  `id` int NOT NULL,
+  `question` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `opt1` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `opt2` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `opt3` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `opt4` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `answer` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `level` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `topic` varchar(5000) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -395,9 +395,9 @@ INSERT INTO `question_db` (`id`, `question`, `opt1`, `opt2`, `opt3`, `opt4`, `an
 --
 
 CREATE TABLE `topics_db` (
-  `id` int(11) NOT NULL,
-  `topic_name` varchar(100) NOT NULL,
-  `Qtr` varchar(5000) NOT NULL
+  `id` int NOT NULL,
+  `topic_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `Qtr` varchar(5000) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -431,25 +431,49 @@ INSERT INTO `topics_db` (`id`, `topic_name`, `Qtr`) VALUES
 --
 
 CREATE TABLE `users_db` (
-  `id` varchar(50) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `score` varchar(100) NOT NULL DEFAULT '0',
-  `2ndQtr` varchar(500) NOT NULL DEFAULT 'locked',
-  `3rdQtr` varchar(500) NOT NULL DEFAULT 'locked',
-  `4thQtr` varchar(500) NOT NULL DEFAULT 'locked',
-  `user_type` varchar(50) NOT NULL DEFAULT 'user',
-  `isactive` TINYINT(1) NOT NULL DEFAULT 1
+  `id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `score` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `2ndQtr` varchar(500) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'locked',
+  `3rdQtr` varchar(500) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'locked',
+  `4thQtr` varchar(500) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'locked',
+  `user_type` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'user',
+  `isactive` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users_db`
 --
 
-INSERT INTO `users_db` (`id`, `username`, `email`, `password`, `score`, `2ndQtr`, `3rdQtr`, `4thQtr`, `user_type`) VALUES
-('1678677695640e96bf6f6ab', 'admin', 'admin@gmail.com', 'b1473439aa22e8d7c8fafad8b63201a1', '0', 'locked', 'locked', 'locked', 'admin'),
-('168942652864b29a60b0b29', 'frpnzxxx', 'francesredleene@gmail.com', '202cb962ac59075b964b07152d234b70', '2', 'locked', 'locked', 'locked', 'user');
+INSERT INTO `users_db` (`id`, `username`, `email`, `password`, `score`, `2ndQtr`, `3rdQtr`, `4thQtr`, `user_type`, `isactive`) VALUES
+('1678677695640e96bf6f6ab', 'admin', 'admin@gmail.com', 'b1473439aa22e8d7c8fafad8b63201a1', '0', 'locked', 'locked', 'locked', 'admin', 1),
+('168942652864b29a60b0b29', 'frpnzxxx', 'francesredleene@gmail.com', '202cb962ac59075b964b07152d234b70', '2', 'locked', 'locked', 'locked', 'user', 0),
+('169076462164c7054db45ee', 'edson', '11', 'c4ca4238a0b923820dcc509a6f75849b', '7', 'locked', 'locked', 'locked', 'user', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_attempts`
+--
+
+CREATE TABLE `user_attempts` (
+  `id` int NOT NULL,
+  `user_id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `topics_id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `expiry` datetime NOT NULL,
+  `isactive` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_attempts`
+--
+
+INSERT INTO `user_attempts` (`id`, `user_id`, `topics_id`, `expiry`, `isactive`) VALUES
+(1, '169076462164c7054db45ee', 'Data Types and Variables', '2023-07-31 21:21:21', 1),
+(2, '169076462164c7054db45ee', 'String Methods - Switch', '2023-08-01 09:10:00', 1),
+(3, '169076462164c7054db45ee', 'Syntax, Output, Comment', '2023-08-01 09:11:45', 0);
 
 -- --------------------------------------------------------
 
@@ -458,40 +482,59 @@ INSERT INTO `users_db` (`id`, `username`, `email`, `password`, `score`, `2ndQtr`
 --
 
 CREATE TABLE `user_topic_status` (
-  `id` int(120) NOT NULL,
-  `userID` varchar(50) NOT NULL,
-  `topic_name` varchar(50) NOT NULL,
-  `progress` varchar(150) NOT NULL DEFAULT '0',
-  `Qtr` varchar(5000) NOT NULL,
-  `topicStatus` varchar(500) NOT NULL DEFAULT 'false',
-  `medium` varchar(50) NOT NULL DEFAULT '0',
-  `hard` varchar(50) NOT NULL DEFAULT '0',
-  `attempts` int(50) NOT NULL DEFAULT 0
+  `id` int NOT NULL,
+  `userID` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `topic_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `progress` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `score` int NOT NULL,
+  `Qtr` varchar(5000) COLLATE utf8mb4_general_ci NOT NULL,
+  `topicStatus` varchar(500) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'false',
+  `medium` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `hard` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `attempts` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_topic_status`
 --
 
-INSERT INTO `user_topic_status` (`id`, `userID`, `topic_name`, `progress`, `Qtr`, `topicStatus`, `medium`, `hard`, `attempts`) VALUES
-(2754, '168942652864b29a60b0b29', 'Java Arrays', '0', '2nd Quarter', 'false', '0', '0', 0),
-(2755, '168942652864b29a60b0b29', 'Java While Loop', '0', '2nd Quarter', 'false', '0', '0', 0),
-(2756, '168942652864b29a60b0b29', 'Java Methods', '0', '2nd Quarter', 'false', '0', '0', 0),
-(2757, '168942652864b29a60b0b29', 'Java Method Parameters', '0', '2nd Quarter', 'false', '0', '0', 0),
-(2758, '168942652864b29a60b0b29', 'Data Types and Variables', '40', '1st Quarter', 'false', '0', '0', 3),
-(2759, '168942652864b29a60b0b29', 'Syntax, Output, Comment', '0', '1st Quarter', 'false', '0', '0', 0),
-(2760, '168942652864b29a60b0b29', 'String Methods - Switch', '0', '1st Quarter', 'false', '0', '0', 0),
-(2761, '168942652864b29a60b0b29', 'JAVA OOP ', '0', '3rd Quarter', 'false', '0', '0', 0),
-(2762, '168942652864b29a60b0b29', 'JAVA CLASSES AND OBJECTS ', '0', '3rd Quarter', 'false', '0', '0', 0),
-(2763, '168942652864b29a60b0b29', 'JAVA CLASS METHODS', '0', '3rd Quarter', 'false', '0', '0', 0),
-(2764, '168942652864b29a60b0b29', 'JAVA CLASS ATTRIBUTES', '0', '3rd Quarter', 'false', '0', '0', 0),
-(2765, '168942652864b29a60b0b29', 'Java Constructors', '0', '4th Quarter', 'false', '0', '0', 0),
-(2766, '168942652864b29a60b0b29', 'Java Encapsulation', '0', '4th Quarter', 'false', '0', '0', 0),
-(2767, '168942652864b29a60b0b29', 'Java Inheritance', '0', '4th Quarter', 'false', '0', '0', 0),
-(2768, '168942652864b29a60b0b29', 'Java Modifiers', '0', '4th Quarter', 'false', '0', '0', 0),
-(2769, '168942652864b29a60b0b29', 'Java Method Overloading', '0', '2nd Quarter', 'false', '0', '0', 0),
-(2770, '168942652864b29a60b0b29', 'Java Break and Continue', '0', '2nd Quarter', 'false', '0', '0', 0),
-(2771, '168942652864b29a60b0b29', 'Java Arrays Loop', '0', '2nd Quarter', 'false', '0', '0', 0);
+INSERT INTO `user_topic_status` (`id`, `userID`, `topic_name`, `progress`, `score`, `Qtr`, `topicStatus`, `medium`, `hard`, `attempts`) VALUES
+(2754, '168942652864b29a60b0b29', 'Java Arrays', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2755, '168942652864b29a60b0b29', 'Java While Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2756, '168942652864b29a60b0b29', 'Java Methods', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2757, '168942652864b29a60b0b29', 'Java Method Parameters', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2758, '168942652864b29a60b0b29', 'Data Types and Variables', '40', 0, '1st Quarter', 'false', '0', '0', 3),
+(2759, '168942652864b29a60b0b29', 'Syntax, Output, Comment', '0', 0, '1st Quarter', 'false', '0', '0', 0),
+(2760, '168942652864b29a60b0b29', 'String Methods - Switch', '0', 0, '1st Quarter', 'false', '0', '0', 0),
+(2761, '168942652864b29a60b0b29', 'JAVA OOP ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2762, '168942652864b29a60b0b29', 'JAVA CLASSES AND OBJECTS ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2763, '168942652864b29a60b0b29', 'JAVA CLASS METHODS', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2764, '168942652864b29a60b0b29', 'JAVA CLASS ATTRIBUTES', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2765, '168942652864b29a60b0b29', 'Java Constructors', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2766, '168942652864b29a60b0b29', 'Java Encapsulation', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2767, '168942652864b29a60b0b29', 'Java Inheritance', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2768, '168942652864b29a60b0b29', 'Java Modifiers', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2769, '168942652864b29a60b0b29', 'Java Method Overloading', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2770, '168942652864b29a60b0b29', 'Java Break and Continue', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2771, '168942652864b29a60b0b29', 'Java Arrays Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2772, '169076462164c7054db45ee', 'Java Arrays', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2773, '169076462164c7054db45ee', 'Java While Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2774, '169076462164c7054db45ee', 'Java Methods', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2775, '169076462164c7054db45ee', 'Java Method Parameters', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2776, '169076462164c7054db45ee', 'Data Types and Variables', '20', 0, '1st Quarter', 'false', '0', '0', 10),
+(2777, '169076462164c7054db45ee', 'Syntax, Output, Comment', '60', 1, '1st Quarter', 'false', '0', '0', 0),
+(2778, '169076462164c7054db45ee', 'String Methods - Switch', '0', 0, '1st Quarter', 'false', '0', '0', 3),
+(2779, '169076462164c7054db45ee', 'JAVA OOP ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2780, '169076462164c7054db45ee', 'JAVA CLASSES AND OBJECTS ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2781, '169076462164c7054db45ee', 'JAVA CLASS METHODS', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2782, '169076462164c7054db45ee', 'JAVA CLASS ATTRIBUTES', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2783, '169076462164c7054db45ee', 'Java Constructors', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2784, '169076462164c7054db45ee', 'Java Encapsulation', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2785, '169076462164c7054db45ee', 'Java Inheritance', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2786, '169076462164c7054db45ee', 'Java Modifiers', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2787, '169076462164c7054db45ee', 'Java Method Overloading', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2788, '169076462164c7054db45ee', 'Java Break and Continue', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2789, '169076462164c7054db45ee', 'Java Arrays Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0);
 
 --
 -- Indexes for dumped tables
@@ -522,6 +565,12 @@ ALTER TABLE `users_db`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_attempts`
+--
+ALTER TABLE `user_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_topic_status`
 --
 ALTER TABLE `user_topic_status`
@@ -535,29 +584,33 @@ ALTER TABLE `user_topic_status`
 -- AUTO_INCREMENT for table `modules_db`
 --
 ALTER TABLE `modules_db`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `question_db`
 --
 ALTER TABLE `question_db`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=523;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=523;
 
 --
 -- AUTO_INCREMENT for table `topics_db`
 --
 ALTER TABLE `topics_db`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `user_attempts`
+--
+ALTER TABLE `user_attempts`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_topic_status`
 --
 ALTER TABLE `user_topic_status`
-  MODIFY `id` int(120) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2772;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2790;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
