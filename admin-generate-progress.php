@@ -13,6 +13,8 @@ $username = $fetch['username'];
 $score = $fetch['score'];
 
 require('fpdf/fpdf.php');
+
+
 $manilaTimeZone = new DateTimeZone('Asia/Manila');
 
 $manilaDateTime = new DateTime('now', $manilaTimeZone);
@@ -52,6 +54,8 @@ $pdf->Cell(30 ,5,'Total Score: ',0,0);
 $pdf->Cell(5, 5, '', 0, 0); // Add a blank cell to create spacing
 $pdf->Cell(30 ,5, $score ,0,1);
 
+
+
 $pdf->Cell(34 ,5,'',0,1);
 
 
@@ -80,6 +84,8 @@ while($row = mysqli_fetch_assoc($select)){
 /* Closing line */
 $pdf->Cell(array_sum($w),0,'','T');
 $pdf->Output();
+
+
 ?>
 
 

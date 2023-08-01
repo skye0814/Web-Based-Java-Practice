@@ -143,89 +143,89 @@ $lowest_topic = $fetch['topic_lowest'];
                 sidebar.classList.toggle('is-active');
             });
             
-            // For chartjs
-            var yValues = [];
-            var xValues = [];
+            // // For chartjs
+            // var yValues = [];
+            // var xValues = [];
 
-            $(".topic-name").each(function() {
-                xValues.push($(this).text());
-            });
+            // $(".topic-name").each(function() {
+            //     xValues.push($(this).text());
+            // });
 
-            $(".progress-value").each(function() {
-                var str = $(this).text();
-                yValues.push(str.substring(0, str.length-1));
-            });
+            // $(".progress-value").each(function() {
+            //     var str = $(this).text();
+            //     yValues.push(str.substring(0, str.length-1));
+            // });
 
             
-            // Instantiate new table
-            var ctx = document.getElementById('myChart');
-            var newChart = new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        backgroundColor: [
-                            'rgb(68 172 172)'
-                        ],
-                        borderColor: [
-                            'rgb(6 33 54)'
-                        ],
-                        borderWidth: 3,
-                        data: yValues,
-                        barThickness: 20,
-                        label: "Progress",
-                        borderRadius: 5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    resizeDelay: 0,
-                    indexAxis: 'x',
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false
-                            },
-                            title: {
-                                font: {
-                                    family: 'Product Sans'
-                                }
-                            },
-                            font: {
-                                family: 'Product Sans'
-                            }
-                        },
-                        y: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                precision: 0
-                            },
-                            max: 100
+            // // Instantiate new table
+            // var ctx = document.getElementById('myChart');
+            // var newChart = new Chart(ctx, {
+            //     type: "bar",
+            //     data: {
+            //         labels: xValues,
+            //         datasets: [{
+            //             backgroundColor: [
+            //                 'rgb(68 172 172)'
+            //             ],
+            //             borderColor: [
+            //                 'rgb(6 33 54)'
+            //             ],
+            //             borderWidth: 3,
+            //             data: yValues,
+            //             barThickness: 20,
+            //             label: "Progress",
+            //             borderRadius: 5
+            //         }]
+            //     },
+            //     options: {
+            //         responsive: true,
+            //         maintainAspectRatio: true,
+            //         resizeDelay: 0,
+            //         indexAxis: 'x',
+            //         scales: {
+            //             x: {
+            //                 grid: {
+            //                     display: false
+            //                 },
+            //                 title: {
+            //                     font: {
+            //                         family: 'Product Sans'
+            //                     }
+            //                 },
+            //                 font: {
+            //                     family: 'Product Sans'
+            //                 }
+            //             },
+            //             y: {
+            //                 grid: {
+            //                     display: false
+            //                 },
+            //                 ticks: {
+            //                     precision: 0
+            //                 },
+            //                 max: 100
                             
-                        }
-                    },
-                    layout: {
-                        padding: 0
-                    },
-                    plugins: {
-                        legend: {
-                            display: false,
-                            labels: {
-                                font: {
-                                    family: 'Product Sans'
-                                }
-                            }
-                        },
-                        title: {
-                            display: false,
-                            text: "Topics Progress"
-                        }
-                    }
-                },
-            });
+            //             }
+            //         },
+            //         layout: {
+            //             padding: 0
+            //         },
+            //         plugins: {
+            //             legend: {
+            //                 display: false,
+            //                 labels: {
+            //                     font: {
+            //                         family: 'Product Sans'
+            //                     }
+            //                 }
+            //             },
+            //             title: {
+            //                 display: false,
+            //                 text: "Topics Progress"
+            //             }
+            //         }
+            //     },
+            // });
         });
 
 		

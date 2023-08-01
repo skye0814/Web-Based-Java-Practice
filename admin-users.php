@@ -117,24 +117,24 @@ if (isset($_GET['delete'])) {
                                         </td>
                                         <td data-label="TOPIC:">
                                             <h5>
-                                                <?php echo $hifetch['topic_name']; ?>
+                                                <?php echo isset($hifetch) ? $hifetch['topic_name'] : ''; ?>
                                             </h5>
                                         </td>
 
                                         <td data-label="HI-SCORE:">
                                             <h5>
-                                                <?php echo $hifetch['score']; ?>
+                                                <?php echo isset($hifetch) ? $hifetch['score'] : ''; ?>
                                             </h5>
                                         </td>
                                         <td data-label="TOPIC:">
                                             <h5>
-                                                <?php echo $lowfetch['topic_name']; ?>
+                                                <?php echo isset($lowfetch) ? $lowfetch['topic_name'] : ''; ?>
                                             </h5>
                                         </td>
 
                                         <td data-label="LOW-SCORE:">
                                             <h5>
-                                                <?php echo $lowfetch['score']; ?>
+                                                <?php echo isset($lowfetch) ? $lowfetch['score'] : ''; ?>
                                             </h5>
                                         </td>
                                         <td data-label="USER TYPE:">
