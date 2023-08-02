@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 01, 2023 at 12:35 PM
+-- Generation Time: Aug 02, 2023 at 12:29 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -450,7 +450,8 @@ CREATE TABLE `users_db` (
 INSERT INTO `users_db` (`id`, `username`, `email`, `password`, `score`, `2ndQtr`, `3rdQtr`, `4thQtr`, `user_type`, `isactive`) VALUES
 ('1678677695640e96bf6f6ab', 'admin', 'admin@gmail.com', 'b1473439aa22e8d7c8fafad8b63201a1', '0', 'locked', 'locked', 'locked', 'admin', 1),
 ('168942652864b29a60b0b29', 'frpnzxxx', 'francesredleene@gmail.com', '202cb962ac59075b964b07152d234b70', '2', 'locked', 'locked', 'locked', 'user', 0),
-('169076462164c7054db45ee', 'edson', '11', 'c4ca4238a0b923820dcc509a6f75849b', '7', 'locked', 'locked', 'locked', 'user', 0);
+('169076462164c7054db45ee', 'edson', '11', 'c4ca4238a0b923820dcc509a6f75849b', '31', 'locked', 'locked', 'locked', 'user', 0),
+('169089462864c901242f384', '12', '12', 'c20ad4d76fe97759aa27a0c99bff6710', '2', 'locked', 'locked', 'locked', 'user', 1);
 
 -- --------------------------------------------------------
 
@@ -486,7 +487,7 @@ CREATE TABLE `user_topic_status` (
   `userID` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `topic_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `progress` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
-  `score` int NOT NULL,
+  `score` int NOT NULL DEFAULT '0',
   `Qtr` varchar(5000) COLLATE utf8mb4_general_ci NOT NULL,
   `topicStatus` varchar(500) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'false',
   `medium` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
@@ -499,42 +500,24 @@ CREATE TABLE `user_topic_status` (
 --
 
 INSERT INTO `user_topic_status` (`id`, `userID`, `topic_name`, `progress`, `score`, `Qtr`, `topicStatus`, `medium`, `hard`, `attempts`) VALUES
-(2754, '168942652864b29a60b0b29', 'Java Arrays', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2755, '168942652864b29a60b0b29', 'Java While Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2756, '168942652864b29a60b0b29', 'Java Methods', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2757, '168942652864b29a60b0b29', 'Java Method Parameters', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2758, '168942652864b29a60b0b29', 'Data Types and Variables', '40', 0, '1st Quarter', 'false', '0', '0', 3),
-(2759, '168942652864b29a60b0b29', 'Syntax, Output, Comment', '0', 0, '1st Quarter', 'false', '0', '0', 0),
-(2760, '168942652864b29a60b0b29', 'String Methods - Switch', '0', 0, '1st Quarter', 'false', '0', '0', 0),
-(2761, '168942652864b29a60b0b29', 'JAVA OOP ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
-(2762, '168942652864b29a60b0b29', 'JAVA CLASSES AND OBJECTS ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
-(2763, '168942652864b29a60b0b29', 'JAVA CLASS METHODS', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
-(2764, '168942652864b29a60b0b29', 'JAVA CLASS ATTRIBUTES', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
-(2765, '168942652864b29a60b0b29', 'Java Constructors', '0', 0, '4th Quarter', 'false', '0', '0', 0),
-(2766, '168942652864b29a60b0b29', 'Java Encapsulation', '0', 0, '4th Quarter', 'false', '0', '0', 0),
-(2767, '168942652864b29a60b0b29', 'Java Inheritance', '0', 0, '4th Quarter', 'false', '0', '0', 0),
-(2768, '168942652864b29a60b0b29', 'Java Modifiers', '0', 0, '4th Quarter', 'false', '0', '0', 0),
-(2769, '168942652864b29a60b0b29', 'Java Method Overloading', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2770, '168942652864b29a60b0b29', 'Java Break and Continue', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2771, '168942652864b29a60b0b29', 'Java Arrays Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2772, '169076462164c7054db45ee', 'Java Arrays', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2773, '169076462164c7054db45ee', 'Java While Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2774, '169076462164c7054db45ee', 'Java Methods', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2775, '169076462164c7054db45ee', 'Java Method Parameters', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2776, '169076462164c7054db45ee', 'Data Types and Variables', '20', 0, '1st Quarter', 'false', '0', '0', 10),
-(2777, '169076462164c7054db45ee', 'Syntax, Output, Comment', '60', 1, '1st Quarter', 'false', '0', '0', 0),
-(2778, '169076462164c7054db45ee', 'String Methods - Switch', '0', 0, '1st Quarter', 'false', '0', '0', 3),
-(2779, '169076462164c7054db45ee', 'JAVA OOP ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
-(2780, '169076462164c7054db45ee', 'JAVA CLASSES AND OBJECTS ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
-(2781, '169076462164c7054db45ee', 'JAVA CLASS METHODS', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
-(2782, '169076462164c7054db45ee', 'JAVA CLASS ATTRIBUTES', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
-(2783, '169076462164c7054db45ee', 'Java Constructors', '0', 0, '4th Quarter', 'false', '0', '0', 0),
-(2784, '169076462164c7054db45ee', 'Java Encapsulation', '0', 0, '4th Quarter', 'false', '0', '0', 0),
-(2785, '169076462164c7054db45ee', 'Java Inheritance', '0', 0, '4th Quarter', 'false', '0', '0', 0),
-(2786, '169076462164c7054db45ee', 'Java Modifiers', '0', 0, '4th Quarter', 'false', '0', '0', 0),
-(2787, '169076462164c7054db45ee', 'Java Method Overloading', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2788, '169076462164c7054db45ee', 'Java Break and Continue', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
-(2789, '169076462164c7054db45ee', 'Java Arrays Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0);
+(2790, '169089462864c901242f384', 'Java Arrays', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2791, '169089462864c901242f384', 'Java While Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2792, '169089462864c901242f384', 'Java Methods', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2793, '169089462864c901242f384', 'Java Method Parameters', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2794, '169089462864c901242f384', 'Data Types and Variables', '40', 2, '1st Quarter', 'false', '0', '0', 1),
+(2795, '169089462864c901242f384', 'Syntax, Output, Comment', '0', 0, '1st Quarter', 'false', '0', '0', 0),
+(2796, '169089462864c901242f384', 'String Methods - Switch', '0', 0, '1st Quarter', 'false', '0', '0', 0),
+(2797, '169089462864c901242f384', 'JAVA OOP ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2798, '169089462864c901242f384', 'JAVA CLASSES AND OBJECTS ', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2799, '169089462864c901242f384', 'JAVA CLASS METHODS', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2800, '169089462864c901242f384', 'JAVA CLASS ATTRIBUTES', '0', 0, '3rd Quarter', 'false', '0', '0', 0),
+(2801, '169089462864c901242f384', 'Java Constructors', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2802, '169089462864c901242f384', 'Java Encapsulation', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2803, '169089462864c901242f384', 'Java Inheritance', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2804, '169089462864c901242f384', 'Java Modifiers', '0', 0, '4th Quarter', 'false', '0', '0', 0),
+(2805, '169089462864c901242f384', 'Java Method Overloading', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2806, '169089462864c901242f384', 'Java Break and Continue', '0', 0, '2nd Quarter', 'false', '0', '0', 0),
+(2807, '169089462864c901242f384', 'Java Arrays Loop', '0', 0, '2nd Quarter', 'false', '0', '0', 0);
 
 --
 -- Indexes for dumped tables
@@ -608,7 +591,7 @@ ALTER TABLE `user_attempts`
 -- AUTO_INCREMENT for table `user_topic_status`
 --
 ALTER TABLE `user_topic_status`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2790;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2808;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
