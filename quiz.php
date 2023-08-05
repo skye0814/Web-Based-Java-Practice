@@ -111,6 +111,11 @@ if ($fetch) {
             return msg;
         }
     </script>
+    <style>
+        .header {
+            position: absolute !important;
+        }
+    </style>
 
 </head>
 
