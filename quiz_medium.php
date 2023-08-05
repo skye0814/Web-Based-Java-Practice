@@ -173,6 +173,8 @@ if(isset($_GET['level'])){
         var numberOfItems = $('tbody').length;
         var isAllValid = false;
 
+        $('#submitBtn').prop('disabled', true);
+
         $('#form1').on('change', function(){
             var itemsChecked = $('.opts:checked').length;
 
